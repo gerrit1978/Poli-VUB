@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * This file alters the team member (user profile) output
+ * Publications and subprojects are added
+ * 
+ */
+
+/**
+ * Implements hook_user_view
+ */
+function poli_team_user_view($account, $view_mode, $langcode) {
+  // define the uid
+  $uid = $account->uid;
+
+  // add "subprojects_per_user" view to the account
+  $subprojects_per_user = views_embed_view('subprojects_per_user', 'block', $uid);
+  $account->content['subprojects'] = array(
+    '#markup' => $subprojects_per_user,
+    '#prefix' => '<h2>Subprojects</h2>',
+    '#weight' => 100,
+  );
+}

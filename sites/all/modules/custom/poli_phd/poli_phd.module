@@ -1,0 +1,79 @@
+<?php
+
+/**
+ * @file
+ * This module processes views output for PhD overview
+ */
+
+/**
+ * Implements hook_theme
+ *
+ * see http://grayside.org/2010/09/how-override-views-field-template-module for details concerning hook_theme and theme functions
+ */
+function poli_phd_theme($existing, $type, $theme, $path) {
+  return array(
+    'views_view_field__phd__nothing' => array(
+      'arguments' => array('view' => FALSE, 'field' => FALSE, 'row' => FALSE, 'phd' => FALSE),
+      'original hook' => 'views_view_field',
+    ),
+  );
+}
+
+/**
+ * Implements hook_views_api
+ */
+function poli_phd_views_api() {
+  return array(
+    'api' => 3,
+  );
+}
+
+
+/**
+ * Theme function for formatting PhD
+ */
+function theme_views_view_field__phd__nothing(&$vars) {
+  $row = $vars['row'];
+  
+  // get title
+	$phd_title = $row->node_title;
+	
+	// get author
+	$phd_author_type = $row->field_field_phd_author_type[0]['raw']['value'];
+	switch ($phd_author_type) {
+	  case 'internal':
+	    $phd_author = $row->field_field_user_lastname[0]['rendered']['#markup'] . " " . $row->field_field_user_firstname[0]['rendered']['#markup'];
+	    break;
+	  case 'external':
+	    $phd_author = $row->field_field_phd_author_external[0]['rendered']['#markup'];
+	    break;
+	}
+	
+	// get promotor
+	$phd_promotor_type = $row->field_field_phd_promotor_type[0]['raw']['value'];
+	switch ($phd_promotor_type) {
+	  case 'internal':
+	    $phd_promotor = $row->field_field_user_lastname_1[0]['rendered']['#markup'] . " " . $row->field_field_user_firstname_1[0]['rendered']['#markup'];
+	    break;
+	  case 'external':
+	    $phd_promotor = $row->field_field_phd_promotor_external[0]['rendered']['#markup'];
+	    break;
+	}
+	
+	
+	
+	// finally, compose string
+	$phd_status = $row->field_field_phd_status[0]['raw']['value'];
+	switch ($phd_status) {
+	  case 'active':
+	    $phd = sprintf('%s: %s (Promotor: %s)', $phd_author, $phd_title, $phd_promotor);
+	    break;
+	  case 'finished':
+	    $phd_year = $row->field_field_phd_year_of_defense[0]['rendered']['#markup'];
+	    $phd = sprintf('%s (%d): %s (Promotor: %s)', $phd_author, $phd_year, $phd_title, $phd_promotor);
+	    break;
+	}
+
+  return $phd;
+	
+}
