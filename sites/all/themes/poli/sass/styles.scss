@@ -189,8 +189,15 @@ ul.members {
     padding: 0;
     list-style: none;
     float: left;
-    margin-right: 10px;
+    margin-right: 2%;
+    width: 18%;
+    margin-bottom: 20px;
+    line-height: 1;
+    &.first {
+      clear: left;
+    }
     .views-field-field-user-profile-picture {
+      margin-bottom: 5px;
 	    a {
 	      border: none;
 	      &:hover {

@@ -16,11 +16,15 @@ function poli_team_user_view($account, $view_mode, $langcode) {
 
   // add "subprojects_per_user" view to the account
   $subprojects_per_user = views_embed_view('subprojects_per_user', 'block', $uid);
-  $account->content['subprojects'] = array(
-    '#markup' => $subprojects_per_user,
-    '#prefix' => '<h2>Subprojects</h2>',
-    '#weight' => 100,
-  );
+  
+  // TODO maak dit wat beter
+  if (strpos($subprojects_per_user, '<a')) {
+	  $account->content['subprojects'] = array(
+	    '#markup' => $subprojects_per_user,
+	    '#prefix' => '<h2>Subprojects</h2>',
+	    '#weight' => 100,
+	  );
+  }
   
   $firstname_field = field_get_items('user', $account, 'field_user_firstname');
   $firstname = $firstname_field[0]['value'];
