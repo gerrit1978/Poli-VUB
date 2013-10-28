@@ -1944,12 +1944,12 @@ ul {
 
 /* Research Theme */
 /* line 170, ../sass/styles.scss */
-.node-type-subproject .field-name-field-research-image .field-items .field-item {
+.node-type-research-theme .field-name-field-research-image .field-items .field-item {
   float: left;
   margin-right: 10px;
 }
 /* line 174, ../sass/styles.scss */
-.node-type-subproject .field-name-field-research-image .field-items .field-item a:hover {
+.node-type-research-theme .field-name-field-research-image .field-items .field-item a:hover {
   border: none;
 }
 
