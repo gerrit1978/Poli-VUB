@@ -1922,3 +1922,56 @@ ul {
 .region-sidebar-first a:hover {
   color: #222222;
 }
+
+/* Views Lists */
+/* line 150, ../sass/styles.scss */
+#content .view ul.items {
+  margin: 0;
+  padding: 0;
+}
+/* line 153, ../sass/styles.scss */
+#content .view ul.items li {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 20px;
+  list-style: none;
+}
+/* line 158, ../sass/styles.scss */
+#content .view ul.items li p {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+/* Research Theme */
+/* line 170, ../sass/styles.scss */
+.node-type-subproject .field-name-field-research-image .field-items .field-item {
+  float: left;
+  margin-right: 10px;
+}
+/* line 174, ../sass/styles.scss */
+.node-type-subproject .field-name-field-research-image .field-items .field-item a:hover {
+  border: none;
+}
+
+/* Team members */
+/* line 184, ../sass/styles.scss */
+ul.members {
+  margin: 0;
+  padding: 0;
+}
+/* line 187, ../sass/styles.scss */
+ul.members li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  float: left;
+  margin-right: 10px;
+}
+/* line 194, ../sass/styles.scss */
+ul.members li .views-field-field-user-profile-picture a {
+  border: none;
+}
+/* line 196, ../sass/styles.scss */
+ul.members li .views-field-field-user-profile-picture a:hover {
+  border: none;
+}

@@ -144,3 +144,59 @@ ul {
     }
   }
 }
+
+/* Views Lists */
+#content .view {
+  ul.items {
+    margin: 0;
+    padding: 0;
+    li {
+      margin: 0;
+      padding: 0;
+      margin-bottom: 20px;
+      list-style: none;
+      p {
+        margin-top: 0;
+        margin-bottom: 5px;
+      }
+    }
+  }
+}
+
+/* Research Theme */
+.node-type-subproject {
+  .field-name-field-research-image {
+    .field-items {
+      .field-item {
+        float: left;
+        margin-right: 10px;
+        a {
+          &:hover {
+            border: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Team members */
+ul.members {
+  margin: 0;
+  padding: 0;
+  li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    float: left;
+    margin-right: 10px;
+    .views-field-field-user-profile-picture {
+	    a {
+	      border: none;
+	      &:hover {
+	        border: none;
+	      }
+	    }
+    }
+  }
+}
