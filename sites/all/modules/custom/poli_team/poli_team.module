@@ -21,4 +21,30 @@ function poli_team_user_view($account, $view_mode, $langcode) {
     '#prefix' => '<h2>Subprojects</h2>',
     '#weight' => 100,
   );
+  
+  $firstname_field = field_get_items('user', $account, 'field_user_firstname');
+  $firstname = $firstname_field[0]['value'];
+  
+  $lastname_field = field_get_items('user', $account, 'field_user_lastname');
+  $lastname = $lastname_field[0]['value'];
+  
+  $name = sprintf('%s %s', $firstname, $lastname);
+  
+  drupal_set_title($name);
+  
+}
+
+/**
+ * Implements hook_preprocess_page
+ */
+function poli_team_preprocess_page($variables, $hook) {
+/*
+  d
+  unset($variables['title']);
+*/
+/*
+  print "<pre>";
+  print_r($variables);
+  print "</pre>";
+*/
 }
