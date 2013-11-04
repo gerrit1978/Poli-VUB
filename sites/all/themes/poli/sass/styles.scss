@@ -116,6 +116,11 @@ ul {
   font-size: 0.75em;
 }
 
+/* Bottom margin */
+article.node {
+  margin-bottom: 20px;
+}
+
 /* Left Sidebar (blocks) */
 .region-sidebar-first {
   .block {
@@ -211,6 +216,26 @@ ul.members {
 	        border: none;
 	      }
 	    }
+    }
+  }
+}
+
+.page-user {
+  .subprojects {
+    h2 {
+      margin: 0;
+    }
+  }
+}
+
+/* Research Themes */
+.node-type-research-theme {
+  .subprojects {
+    clear: both;
+    padding-top: 20px;
+    margin-bottom: 20px;
+    h2 {
+      margin: 0;
     }
   }
 }
