@@ -11,17 +11,15 @@
  * Implements hook_user_view
  */
 function poli_team_user_view($account, $view_mode, $langcode) {
-  // define the uid
   $uid = $account->uid;
 
-  // add "subprojects_per_user" view to the account
-  $subprojects_per_user = views_embed_view('subprojects_per_user', 'block', $uid);
-  
-  // TODO maak dit wat beter
-  if (strpos($subprojects_per_user, '<a')) {
+  $number_of_subprojects = views_get_view_result('subprojects', 'user', $uid);
+
+  if (count($number_of_subprojects)) {
 	  $account->content['subprojects'] = array(
-	    '#markup' => $subprojects_per_user,
-	    '#prefix' => '<h2>Subprojects</h2>',
+	    '#markup' => views_embed_view('subprojects', 'user', $uid),
+	    '#prefix' => '<div class="subprojects"><h2>Subprojects</h2>',
+	    '#suffix' => '</div>',
 	    '#weight' => 100,
 	  );
   }
