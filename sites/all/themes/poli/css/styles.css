@@ -2034,11 +2034,45 @@ ul.members li .views-field-field-user-profile-picture a:hover {
   font-weight: bolder;
 }
 
+/* Document Portal */
+/* line 262, ../sass/styles.scss */
+.view-document-portal table {
+  width: 100%;
+}
+/* line 264, ../sass/styles.scss */
+.view-document-portal table tr.odd {
+  background: #fafafa;
+}
+/* line 267, ../sass/styles.scss */
+.view-document-portal table td {
+  padding: 10px 0;
+}
+/* line 269, ../sass/styles.scss */
+.view-document-portal table td.views-field-created {
+  padding-left: 10px;
+  text-align: left;
+  width: 20%;
+}
+/* line 275, ../sass/styles.scss */
+.view-document-portal table th {
+  padding: 10px 0;
+}
+/* line 277, ../sass/styles.scss */
+.view-document-portal table th.views-field-created {
+  padding-left: 10px;
+  text-align: left;
+  width: 20%;
+}
+/* line 282, ../sass/styles.scss */
+.view-document-portal table th.views-field-title {
+  text-align: left;
+}
+
 /*
  * Footer
  * Sticky footer: see http://www.cssstickyfooter.com/
  */
-/* line 264, ../sass/styles.scss */
+/* line 293, ../sass/styles.scss */
 * {
   margin: 0;
   padding: 0;
@@ -2047,23 +2081,23 @@ ul.members li .views-field-field-user-profile-picture a:hover {
 /* must declare 0 margins on everything, also for main layout components use padding, not 
 vertical margins (top and bottom) to add spacing, else those margins get added to total height 
 and your footer gets pushed down a bit more, creating vertical scroll bars in the browser */
-/* line 273, ../sass/styles.scss */
+/* line 302, ../sass/styles.scss */
 html, body {
   height: 100%;
 }
 
-/* line 277, ../sass/styles.scss */
+/* line 306, ../sass/styles.scss */
 #page-wrapper {
   min-height: 100%;
 }
 
-/* line 281, ../sass/styles.scss */
+/* line 310, ../sass/styles.scss */
 #page-wrapper-inner {
   overflow: auto;
   padding-bottom: 50px;
 }
 
-/* line 286, ../sass/styles.scss */
+/* line 315, ../sass/styles.scss */
 #footer {
   position: relative;
   margin-top: -50px;
@@ -2074,20 +2108,20 @@ html, body {
   color: white;
   font-size: 0.875em;
 }
-/* line 294, ../sass/styles.scss */
+/* line 323, ../sass/styles.scss */
 #footer p {
   margin: 0;
   padding: 0;
 }
-/* line 298, ../sass/styles.scss */
+/* line 327, ../sass/styles.scss */
 #footer a {
   color: white;
 }
-/* line 300, ../sass/styles.scss */
+/* line 329, ../sass/styles.scss */
 #footer a:hover {
   border-bottom: 1px solid white;
 }
-/* line 304, ../sass/styles.scss */
+/* line 333, ../sass/styles.scss */
 #footer .block {
   line-height: 50px;
   max-width: 940px;
@@ -2098,7 +2132,7 @@ html, body {
 }
 
 /*Opera Fix*/
-/* line 315, ../sass/styles.scss */
+/* line 344, ../sass/styles.scss */
 body:before {
   /* thanks to Maleika (Kohoutec)*/
   content: "";

@@ -257,6 +257,35 @@ ul.members {
   }
 }
 
+/* Document Portal */
+.view-document-portal {
+  table {
+    width: 100%;
+    tr.odd {
+      background: #fafafa;
+    }
+    td {
+      padding: 10px 0;
+      &.views-field-created {
+        padding-left: 10px;
+        text-align: left;
+        width: 20%;
+      }
+    }
+    th {
+      padding: 10px 0;
+      &.views-field-created {
+        padding-left: 10px;
+        text-align: left;
+        width: 20%;        
+      }
+      &.views-field-title {
+        text-align: left;
+      }
+    }
+  }
+}
+
 /*
  * Footer
  * Sticky footer: see http://www.cssstickyfooter.com/
