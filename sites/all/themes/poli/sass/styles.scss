@@ -117,7 +117,7 @@ ul {
 }
 
 /* Bottom margin */
-article.node {
+#content {
   margin-bottom: 20px;
 }
 
@@ -240,6 +240,23 @@ ul.members {
   }
 }
 
+/* PhDs */
+.view-phd {
+  ul.phds {
+    margin: 0;
+    padding: 0;
+    li.phd {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      margin-bottom: 10px;
+      .author {
+        font-weight: bolder;
+      }
+    }
+  }
+}
+
 /*
  * Footer
  * Sticky footer: see http://www.cssstickyfooter.com/
@@ -289,6 +306,7 @@ html, body {
 	  max-width: 940px;
 	  margin-left: auto;
 	  margin-right: auto;
+	  margin-bottom: 0;
 	  text-align: center;
 	}
 }

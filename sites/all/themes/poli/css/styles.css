@@ -1891,7 +1891,7 @@ ul {
 
 /* Bottom margin */
 /* line 120, ../sass/styles.scss */
-article.node {
+#content {
   margin-bottom: 20px;
 }
 
@@ -2016,11 +2016,29 @@ ul.members li .views-field-field-user-profile-picture a:hover {
   margin: 0;
 }
 
+/* PhDs */
+/* line 245, ../sass/styles.scss */
+.view-phd ul.phds {
+  margin: 0;
+  padding: 0;
+}
+/* line 248, ../sass/styles.scss */
+.view-phd ul.phds li.phd {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  margin-bottom: 10px;
+}
+/* line 253, ../sass/styles.scss */
+.view-phd ul.phds li.phd .author {
+  font-weight: bolder;
+}
+
 /*
  * Footer
  * Sticky footer: see http://www.cssstickyfooter.com/
  */
-/* line 247, ../sass/styles.scss */
+/* line 264, ../sass/styles.scss */
 * {
   margin: 0;
   padding: 0;
@@ -2029,23 +2047,23 @@ ul.members li .views-field-field-user-profile-picture a:hover {
 /* must declare 0 margins on everything, also for main layout components use padding, not 
 vertical margins (top and bottom) to add spacing, else those margins get added to total height 
 and your footer gets pushed down a bit more, creating vertical scroll bars in the browser */
-/* line 256, ../sass/styles.scss */
+/* line 273, ../sass/styles.scss */
 html, body {
   height: 100%;
 }
 
-/* line 260, ../sass/styles.scss */
+/* line 277, ../sass/styles.scss */
 #page-wrapper {
   min-height: 100%;
 }
 
-/* line 264, ../sass/styles.scss */
+/* line 281, ../sass/styles.scss */
 #page-wrapper-inner {
   overflow: auto;
   padding-bottom: 50px;
 }
 
-/* line 269, ../sass/styles.scss */
+/* line 286, ../sass/styles.scss */
 #footer {
   position: relative;
   margin-top: -50px;
@@ -2056,30 +2074,31 @@ html, body {
   color: white;
   font-size: 0.875em;
 }
-/* line 277, ../sass/styles.scss */
+/* line 294, ../sass/styles.scss */
 #footer p {
   margin: 0;
   padding: 0;
 }
-/* line 281, ../sass/styles.scss */
+/* line 298, ../sass/styles.scss */
 #footer a {
   color: white;
 }
-/* line 283, ../sass/styles.scss */
+/* line 300, ../sass/styles.scss */
 #footer a:hover {
   border-bottom: 1px solid white;
 }
-/* line 287, ../sass/styles.scss */
+/* line 304, ../sass/styles.scss */
 #footer .block {
   line-height: 50px;
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 0;
   text-align: center;
 }
 
 /*Opera Fix*/
-/* line 297, ../sass/styles.scss */
+/* line 315, ../sass/styles.scss */
 body:before {
   /* thanks to Maleika (Kohoutec)*/
   content: "";

@@ -3,7 +3,50 @@
 /**
  * @file
  * This module processes views output for PhD overview
+ * and sorts the PhD view according to 2 author fields
+ *
  */
+
+/**
+ * Implements hook_views_pre_render
+ */
+function poli_phd_views_pre_render(&$view) {
+  if ($view->name == 'phd' && $view->current_display == 'current') {
+
+    $original_result = $view->result;
+    $author_list = array();
+    $new_result = array();
+    
+    // for each of the rows in the original result, define the author field.
+    // This field will be used for sorting
+    foreach ($original_result as $id => $row) {
+      $author_type = $row->field_field_phd_author_type[0]['raw']['value'];
+      $author = "";
+      switch ($author_type) {
+        case 'internal':
+          $author_entity = $row->field_field_phd_author_internal[0]['raw']['entity'];
+          $author_lastname_field = field_get_items('user', $author_entity, 'field_user_lastname');
+          $author_lastname = $author_lastname_field[0]['value'];
+          break;
+        case 'external':
+          $author_lastname = $row->field_field_phd_author_external[0]['raw']['value'];
+          break;
+      }
+      $author_list[$id] = $author_lastname;
+    }
+    
+    // sort the author list
+    asort($author_list);
+    
+    // define the new result
+    foreach ($author_list as $key => $value) {
+      $new_result[] = $original_result[$key];
+    }
+
+    $view->result = $new_result;
+
+  }
+}
 
 /**
  * Implements hook_theme
@@ -53,24 +96,38 @@ function theme_views_view_field__phd__nothing(&$vars) {
 	$phd_promotor_type = $row->field_field_phd_promotor_type[0]['raw']['value'];
 	switch ($phd_promotor_type) {
 	  case 'internal':
-	    $phd_promotor = $row->field_field_user_lastname_1[0]['rendered']['#markup'] . " " . $row->field_field_user_firstname_1[0]['rendered']['#markup'];
+	    $phd_promotor = $row->field_field_user_firstname_1[0]['rendered']['#markup'] . " " . $row->field_field_user_lastname_1[0]['rendered']['#markup'];
 	    break;
 	  case 'external':
 	    $phd_promotor = $row->field_field_phd_promotor_external[0]['rendered']['#markup'];
 	    break;
 	}
 	
+	// get copromotor
+	$phd_copromotor_type = $row->field_field_phd_copromotor_type[0]['raw']['value'];
+	switch ($phd_copromotor_type) {
+	  case 'internal':
+	    $phd_copromotor = $row->field_field_user_firstname_2[0]['rendered']['#markup'] . " " . $row->field_field_user_lastname_2[0]['rendered']['#markup'];
+	    break;
+	  case 'external':
+	    $phd_copromotor = $row->field_field_phd_copromotor_external[0]['rendered']['#markup'];
+	    break;
+	}
+	$copromotor_string = "";
+	if (isset($phd_copromotor) && strlen($phd_copromotor)) {
+	  $copromotor_string = ", Co-promotor: " . $phd_copromotor;
+	}
 	
 	
 	// finally, compose string
 	$phd_status = $row->field_field_phd_status[0]['raw']['value'];
 	switch ($phd_status) {
 	  case 'active':
-	    $phd = sprintf('%s: %s (Promotor: %s)', $phd_author, $phd_title, $phd_promotor);
+	    $phd = sprintf('<span class="author">%s</span>: %s (Promotor: %s%s)', $phd_author, $phd_title, $phd_promotor, $copromotor_string);
 	    break;
 	  case 'finished':
 	    $phd_year = $row->field_field_phd_year_of_defense[0]['rendered']['#markup'];
-	    $phd = sprintf('%s (%d): %s (Promotor: %s)', $phd_author, $phd_year, $phd_title, $phd_promotor);
+	    $phd = sprintf('<span class="author">%s</span> (%d): %s (Promotor: %s%s)', $phd_author, $phd_year, $phd_title, $phd_promotor, $copromotor_string);
 	    break;
 	}
 
