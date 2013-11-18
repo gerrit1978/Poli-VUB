@@ -1,0 +1,147 @@
+<?php
+
+/**
+ * Implements hook_block_info
+ */
+function poli_publications_block_info() {
+  $blocks = array();
+  
+  $blocks['poli_publications_per_user'] = array(
+    'info' => t('Publications per user'),
+  );
+  
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view
+ */
+function poli_publications_block_view($delta = '') {
+  $block = array();
+  
+  switch ($delta) {
+    case 'poli_publications_per_user':
+      $block['subject'] = t('Publications');
+      $block['content'] = _poli_publications_render_block_publications_per_user();
+      break;
+  }
+ 
+  return $block;
+}
+
+/**
+ * Implements hook_theme
+ *
+ * see http://grayside.org/2010/09/how-override-views-field-template-module for details concerning hook_theme and theme functions
+ */
+function poli_publications_theme($existing, $type, $theme, $path) {
+  return array(
+
+		// main catalog pages
+    'views_view_field__publications__field_pub_authors' => array( 
+        'arguments' => array('view' => FALSE, 'field' => FALSE, 'row' => FALSE),
+        'original hook' => 'views_view_field',
+    ),
+  );
+}
+
+/**
+ * Implements hook_views_api
+ */
+function poli_publications_views_api() {
+  return array(
+    'api' => 3,
+  );
+}
+
+
+/**
+ * Theme function for formatting product 
+ */
+function theme_views_view_field__publications__field_pub_authors(&$vars) {
+  $row = $vars['row'];
+  $authors_output = array();
+  if (isset($row->field_field_pub_authors[0]['rendered']['entity'])) {
+    foreach ($row->field_field_pub_authors as $entity) {
+      foreach ($entity['rendered']['entity']['field_collection_item'] as $field_collection_item_id => $field_collection_item) {
+        if (isset($field_collection_item['field_pub_authors_author_int'])) {
+          $author_id = $field_collection_item['field_pub_authors_author_int']['#items'][0]['target_id'];
+          $author_entity = $field_collection_item['field_pub_authors_author_int']['#items'][0]['entity'];
+          $firstname_field = field_get_items('user', $author_entity, 'field_user_firstname');
+          $lastname_field = field_get_items('user', $author_entity, 'field_user_lastname');
+          $firstname = $firstname_field[0]['value'];
+          $lastname = $lastname_field[0]['value'];
+          $name = strtoupper($lastname) . ", " . $firstname;
+          
+          // TODO: enkel link wanneer deze gebruiker actief is!
+          $output = l($name, 'user/' . $author_id);
+          // END TODO
+          
+          $authors_output[] = $output;
+
+        }
+        if (isset($field_collection_item['field_pub_authors_author_ext'])) {
+          $authors_output[] = $field_collection_item['field_pub_authors_author_ext']['#items'][0]['value'];
+        }
+      }
+    }
+
+    if (count($authors_output)) {
+      $output_string = "";
+      $output_string .= $authors_output[0];
+
+      if (count($authors_output > 2)) {
+	      for ($i = 1; $i < (count($authors_output) - 1); $i++) {
+	        $output_string .= ", " . $authors_output[$i];
+	      }
+	    }
+	    
+	    if (count($authors_output) > 1) {
+		    $output_string .= " & " . $authors_output[(count($authors_output) - 1)];
+	    }
+	    
+      return $output_string;
+    }
+  }
+}
+
+
+
+/**
+ * Helper function rendering block publications per user
+ */
+function _poli_publications_render_block_publications_per_user() {
+  if (arg(0) == 'user' && is_numeric(arg(1))) {
+    $uid = arg(1);
+  }
+  
+  $result = db_query(
+    "SELECT * FROM 
+      {field_data_field_pub_authors_author_int} ai,
+      {field_collection_item} ci,
+      {field_data_field_pub_authors} pa
+    WHERE 
+      ai.field_pub_authors_author_int_target_id=:uid
+    AND
+      ai.entity_id = ci.item_id
+    AND
+      ci.item_id = pa.field_pub_authors_revision_id  
+    ;",
+    array(':uid' => $uid));
+  
+  $pub_nids = array();
+  
+  foreach ($result as $row) {
+    $pub_nids[] = $row->entity_id;
+  }
+  
+  if (count($pub_nids)) {
+    $arguments = implode(',', $pub_nids);
+    $output = views_embed_view('publications', 'block_1', $arguments);
+
+  } else {
+    $output = t('No publications found for this user.');
+  }
+  
+  return $output;
+}
