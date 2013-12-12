@@ -10,6 +10,10 @@ function poli_publications_block_info() {
     'info' => t('Publications per user'),
   );
   
+  $blocks['poli_publications_year_summary'] = array(
+    'info' => t('Publications year summary'),
+  );
+  
   return $blocks;
 }
 
@@ -24,6 +28,12 @@ function poli_publications_block_view($delta = '') {
       $block['subject'] = t('Publications');
       $block['content'] = _poli_publications_render_block_publications_per_user();
       break;
+  
+    case 'poli_publications_year_summary':
+      $block['subject'] = t('Publications');
+      $block['content'] = _poli_publications_render_block_publications_year_summary();
+      break;
+  
   }
  
   return $block;
@@ -142,6 +152,31 @@ function _poli_publications_render_block_publications_per_user() {
   } else {
     $output = t('No publications found for this user.');
   }
+  
+  return $output;
+}
+
+/**
+ * Helper function for rendering block publications year summary
+ */
+function _poli_publications_render_block_publications_year_summary() {
+
+  // get all years
+  $years = array();
+  $result = db_query('SELECT DISTINCT field_pub_year_value FROM {field_data_field_pub_year};');
+  foreach ($result as $row) {
+    $years[] = $row->field_pub_year_value;
+  }
+  
+  arsort($years);
+
+  $years_links = array();
+  foreach ($years as $year) {
+    $years_links[] = l($year, 'publications/' . $year);
+  }
+  
+  $output = theme('item_list', array('items' => $years_links));
+
   
   return $output;
 }

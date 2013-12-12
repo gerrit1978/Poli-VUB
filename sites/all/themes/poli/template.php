@@ -130,3 +130,34 @@ function poli_preprocess_block(&$variables, $hook) {
   //}
 }
 // */
+
+function poli_field__field_user_research_theme($variables) {
+
+  if (!count($variables['items'])) {
+    return;
+  } else {
+    $items = array();
+    foreach ($variables['items'] as $item) {
+      $items[] = $item['#markup'];
+    }
+  
+    $output = "<h2>Research Themes</h2>"
+      . theme('item_list', array('items' => $items));
+      
+    return $output;
+  }
+  
+/*
+  print_r($items);
+  exit();
+
+  print "<pre>";
+  print_r($variables);
+  print "</pre>";
+  exit();
+  $output = "<h2>Research Themes</h2>";
+
+  return $output;
+*/
+
+}
